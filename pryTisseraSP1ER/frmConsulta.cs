@@ -7,14 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace pryTisseraSP1ER
 {
-    public partial class Form1 : Form
+    public partial class frmConsulta : Form
     {
-        public Form1()
+        public frmConsulta()
         {
             InitializeComponent();
+        }
+
+        private void frmConsulta_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
