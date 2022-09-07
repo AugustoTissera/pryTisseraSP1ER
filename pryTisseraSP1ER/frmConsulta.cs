@@ -22,5 +22,22 @@ namespace pryTisseraSP1ER
         {
 
         }
+
+        private void btnGrabar_Click(object sender, EventArgs e)
+        {
+            StreamWriter swMovimientos = new StreamWriter("./movimientos.txt");
+            swMovimientos.WriteLine(cboFacturaTipo.Text + "\u0009" + txtFacturaNro.Text + "\u0009" + dtpFecha.Text + "\u0009" + txtClienteID.Text + "\u0009" + txtVendedorID.Text + "\u0009" + txtMonto.Text);
+
+            MessageBox.Show("Datos cargados con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            swMovimientos.Close();
+
+            txtClienteID.Text = "";
+            txtVendedorID.Text = "";
+            cboFacturaTipo.Text = "";
+            txtFacturaNro.Text = "";
+            dtpFecha.Value = DateTime.Today;
+            txtMonto.Text = "";
+            txtClienteID.Focus();
+        }
     }
 }
