@@ -20,23 +20,62 @@ namespace pryTisseraSP1ER
 
         private void btnGrabar_Click(object sender, EventArgs e)
         {
-            bool Bandera = false;
-            
-            StreamReader srVendedores = new StreamReader("./vendedores.txt");
-            while (!srVendedores.EndOfStream)
+            string varComision;
+            if (cboComision.Text == "Sí")
             {
-                string[] vecVendedores = srVendedores.ReadLine().Split('\u0009');
-
-                if (vecVendedores[0] == txtID.Text)
-                {
-                    Bandera = true;
-                }
+                varComision = "1";
             }
-            srVendedores.Close();
-
-            if (Bandera == true)
+            else
             {
-                MessageBox.Show("El ID ya se encuentra cargado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                varComision = "0";
+            }
+
+            string varActivo;
+            if (cboActivo.Text == "Sí")
+            {
+                varActivo = "1";
+            }
+            else
+            {
+                varActivo = "0";
+            }
+
+            if (File.Exists("./vendedores.txt") == true)
+            {
+                bool Bandera = false;
+
+                StreamReader srVendedores = new StreamReader("./vendedores.txt");
+                while (!srVendedores.EndOfStream)
+                {
+                    string[] vecVendedores = srVendedores.ReadLine().Split('\u0009');
+
+                    if (vecVendedores[0] == txtID.Text)
+                    {
+                        Bandera = true;
+                    }
+                }
+                srVendedores.Close();
+
+                if (Bandera == true)
+                {
+                    MessageBox.Show("El ID ya se encuentra cargado.", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    StreamWriter swVendedores = new StreamWriter("./vendedores.txt", true);
+                    swVendedores.WriteLine(txtID.Text + "\u0009" + txtNombre.Text + "\u0009" + varActivo + "\u0009" + varComision);
+
+                    MessageBox.Show("Datos cargados con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    swVendedores.Close();
+
+                    txtID.Text = "";
+                    txtNombre.Text = "";
+                    cboActivo.Text = "";
+                    cboComision.Text = "";
+                    txtID.Focus();
+                }
+            
+            
             }
             else
             {
@@ -52,7 +91,6 @@ namespace pryTisseraSP1ER
                 cboComision.Text = "";
                 txtID.Focus();
             }
-            
             
         }
     }
